@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[Имя Фамилия] — геймдизайнер: liveops, документация, баланс</title>
+<meta name="description" content="Интерактивное резюме геймдизайнера: рабочий тюнер лайвопс-событий, таблица контента с формулами, экономика события и разбор результатов.">
+<meta name="theme-color" content="#0A0D0B">
+<link rel="stylesheet" href="styles.css?v=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0D0B'/><path d='M16 7l7 9-7 9-7-9z' fill='none' stroke='%236EE7A8' stroke-width='2.2' stroke-linejoin='round'/></svg>">
+</head>
+<body>
+
+<!-- ШАПКА ----------------------------------------------------------------- -->
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#hero">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-name" id="brandName"></span>
+        <span class="brand-role" id="brandRole"></span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Разделы резюме">
+      <a href="#lab" data-spy>Лаборатория</a>
+      <a href="#about" data-spy>Обо мне</a>
+      <a href="#projects" data-spy>Кейсы</a>
+      <a href="#gametech" data-spy>О ГеймТек</a>
+      <a href="#process" data-spy>Метод</a>
+      <a href="#match" data-spy>Вакансия</a>
+      <a href="#contacts" data-spy class="nav-cta">Контакты</a>
+    </nav>
+    <button id="printBtn" class="btn btn-ghost btn-sm" type="button">В PDF</button>
+  </div>
+</header>
+
+<main>
+
+<!-- 00 / ТИТУЛ ----------------------------------------------------------- -->
+<section id="hero" class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="kicker" id="heroKicker"></p>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-sub" id="heroSub"></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#lab">Покрутить тюнер события</a>
+        <a class="btn" href="#projects">Смотреть кейсы</a>
+      </div>
+    </div>
+
+    <aside class="hero-card" id="heroCard">
+      <div class="hc-head">
+        <span class="hc-label">Карточка кандидата</span>
+        <span class="hc-vacancy" id="hcVacancy"></span>
+      </div>
+      <dl class="hc-list" id="hcList"></dl>
+      <div class="hc-tags" id="hcTags"></div>
+    </aside>
+  </div>
+  <div class="wrap"><div class="stats" id="heroStats"></div></div>
+</section>
+
+<!-- 01 / ЛАБОРАТОРИЯ ----------------------------------------------------- -->
+<section id="lab" class="sec sec-lab">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">01</p>
+      <h2 class="sec-title">Лаборатория: тюнер лайвопс-события</h2>
+      <p class="sec-lead">
+        Это не картинка из презентации, а рабочий инструмент. Задайте параметры события — он
+        пересчитает кривую прогрессии, долю игроков, которые успевают, и бюджет наград.
+        Все расчёты сделаны в браузере, формулы такие же, какие я использую в Google Sheets.
+      </p>
+    </header>
+
+    <div class="lab" data-reveal>
+      <div class="tabs" role="tablist" aria-label="Инструменты лаборатории">
+        <button class="tab is-active" role="tab" data-tab="event"  aria-selected="true"  tabindex="0">Событие</button>
+        <button class="tab" role="tab" data-tab="table"          aria-selected="false" tabindex="-1">Таблица контента</button>
+        <button class="tab" role="tab" data-tab="ab"             aria-selected="false" tabindex="-1">A/B вариант</button>
+        <button class="tab" role="tab" data-tab="drop"           aria-selected="false" tabindex="-1">Вероятности</button>
+        <button class="tab" role="tab" data-tab="report"         aria-selected="false" tabindex="-1">Разбор</button>
+      </div>
+
+      <!-- ВКЛАДКА 1: СОБЫТИЕ ------------------------------------------- -->
+      <div class="panel is-active" data-panel="event">
+        <div class="panel-head">
+          <h3>Событие: сколько очков нужно и сколько игрок наберёт</h3>
+          <p>
+            Золотая линия — сколько очков событие <b>требует</b> накопить к этому дню по плану.
+            Сплошная зелёная — сколько очка реально <b>набирает</b> средний игрок, пунктирные —
+            новичок и активный. Горизонтальная пунктирная — цель: доля бюджета, без которой
+            финальные награды не открываются. Пока линии не сошлись, событие не взлетает.
+          </p>
+        </div>
+
+        <div class="lab-grid">
+          <div class="ctrls">
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-duration">Длительность</label><output id="ev-duration-out"></output></div>
+              <input type="range" id="ev-duration" min="3" max="21" step="1" value="7">
+              <div class="ctrl-scale"><span>3 дня</span><span>21 день</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-budget">Бюджет события</label><output id="ev-budget-out"></output></div>
+              <input type="range" id="ev-budget" min="4000" max="40000" step="500" value="12000">
+              <div class="ctrl-scale"><span>4 000</span><span>40 000 очков</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-earn">Очки в день у игрока</label><output id="ev-earn-out"></output></div>
+              <input type="range" id="ev-earn" min="800" max="8000" step="100" value="2400">
+              <div class="ctrl-scale"><span>800</span><span>8000</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-curve">Нарастание сложности</label><output id="ev-curve-out"></output></div>
+              <input type="range" id="ev-curve" min="0" max="1" step="0.05" value="0.45">
+              <div class="ctrl-scale"><span>ровно</span><span>лавина</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-retention">Затухание по дням</label><output id="ev-retention-out"></output></div>
+              <input type="range" id="ev-retention" min="0.7" max="1" step="0.01" value="0.88">
+              <div class="ctrl-scale"><span>отваливаются</span><span>не уходят</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-energy">Энергии в день</label><output id="ev-energy-out"></output></div>
+              <input type="range" id="ev-energy" min="20" max="150" step="5" value="50">
+              <div class="ctrl-scale"><span>20</span><span>150</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ev-premium">Цель: доля бюджета</label><output id="ev-premium-out"></output></div>
+              <input type="range" id="ev-premium" min="40" max="100" step="1" value="85">
+              <div class="ctrl-scale"><span>40% — легко</span><span>100% — весь бюджет</span></div>
+            </div>
+            <button class="btn btn-ghost" id="ev-reset" type="button">Сбросить параметры</button>
+          </div>
+
+          <div class="lab-main">
+            <div class="kpis" id="evKpis"></div>
+            <figure class="chart-card">
+              <figcaption>
+                <b>Кривая прогрессии события</b>
+                <span>наведите курсор, чтобы увидеть значения по дням</span>
+              </figcaption>
+              <canvas id="chartCurve" height="320" role="img"
+                      aria-label="График требуемой и доступной прогрессии события по дням"></canvas>
+            </figure>
+          </div>
+        </div>
+
+        <div class="cohorts" id="evCohorts"></div>
+
+        <div class="verdict-box">
+          <h4>Что показывает расчёт</h4>
+          <ul class="verdict-list" id="evVerdict"></ul>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 2: ТАБЛИЦА ------------------------------------------- -->
+      <div class="panel" data-panel="table">
+        <div class="panel-head">
+          <h3>Таблица контента: задания, награды, формулы</h3>
+          <p>
+            Так выглядит артефакт, который я отдаю команде вместе с документом: задания по дням,
+            стоимость в энергии, награды и очки прогрессии. Колонки «доля» и «Δ к плану»
+            считаются формулами — их можно скопировать в Google Sheets одним движением.
+          </p>
+        </div>
+
+        <div class="table-tools">
+          <button class="btn btn-primary" id="tb-gen" type="button">Пересобрать из модели</button>
+          <button class="btn btn-ghost" id="tb-add" type="button">+ Строка</button>
+          <button class="btn btn-ghost" id="tb-tsv" type="button">Копировать для Sheets</button>
+          <button class="btn btn-ghost" id="tb-csv" type="button">Скачать CSV</button>
+          <button class="btn btn-ghost" id="tb-reset" type="button">Сброс</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="btable" id="contentTable">
+            <thead>
+              <tr>
+                <th class="c-name">Задание</th>
+                <th class="c-num">Энергия</th>
+                <th class="c-num">Награда</th>
+                <th class="c-num">Очки</th>
+                <th class="c-num">План</th>
+                <th class="c-num">Доля дня</th>
+                <th class="c-num">Δ к плану</th>
+                <th class="c-act"></th>
+              </tr>
+            </thead>
+            <tbody id="tbBody"></tbody>
+            <tfoot id="tbFoot"></tfoot>
+          </table>
+        </div>
+        <p class="note" id="tbNote"></p>
+
+        <div class="checklist">
+          <div class="checklist-head">
+            <h4>Чек-лист приёмки: «в конфиге так же, как в документе»</h4>
+            <p class="note">
+              Именно этот список закрывает требование «проверить, что контент работает так,
+              как описано в документации». Отмечайте при проверке — прогресс сохраняется в браузере.
+            </p>
+          </div>
+          <ul class="check-list" id="tbCheck"></ul>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 3: A/B ----------------------------------------------- -->
+      <div class="panel" data-panel="ab">
+        <div class="panel-head">
+          <h3>Вариант B: что будет, если поменять параметры</h3>
+          <p>
+            Берём за основу событие из первой вкладки и меняем два самых болезненных параметра —
+            нарастание сложности и позицию премиум-окна. Смотрим, что меняется в метриках,
+            и решаем, стоит ли отправлять это в прод.
+          </p>
+        </div>
+
+        <div class="lab-grid">
+          <div class="ctrls">
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ab-curve">Нарастание сложности (B)</label><output id="ab-curve-out"></output></div>
+              <input type="range" id="ab-curve" min="0" max="1" step="0.05" value="0.45">
+              <div class="ctrl-scale"><span>ровно</span><span>лавина</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ab-premium">Премиум-окно (B)</label><output id="ab-premium-out"></output></div>
+              <input type="range" id="ab-premium" min="30" max="95" step="1" value="70">
+              <div class="ctrl-scale"><span>рано</span><span>поздно</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="ab-budget">Бюджет события (B)</label><output id="ab-budget-out"></output></div>
+              <input type="range" id="ab-budget" min="4000" max="40000" step="500" value="12000">
+              <div class="ctrl-scale"><span>4 000</span><span>40 000</span></div>
+            </div>
+            <div class="lab-actions">
+              <button class="btn btn-primary" id="ab-apply" type="button">Применить B к событию</button>
+              <button class="btn btn-ghost" id="ab-copy" type="button">Скопировать B в A</button>
+            </div>
+          </div>
+
+          <div class="lab-main">
+            <figure class="chart-card">
+              <figcaption>
+                <b>Кривая прогрессии: вариант A и вариант B</b>
+                <span>сплошная — требуется, пунктирная — набирает средний игрок</span>
+              </figcaption>
+              <canvas id="chartAB" height="320" role="img"
+                      aria-label="Сравнение кривых прогрессии вариантов A и B"></canvas>
+            </figure>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="btable btable-cmp">
+            <thead>
+              <tr><th>Метрика</th><th>Вариант A</th><th>Вариант B</th><th>Δ</th><th>Как читать</th></tr>
+            </thead>
+            <tbody id="abBody"></tbody>
+          </table>
+        </div>
+        <p class="note" id="abNote"></p>
+      </div>
+
+      <!-- ВКЛАДКА 4: ВЕРОЯТНОСТИ --------------------------------------- -->
+      <div class="panel" data-panel="drop">
+        <div class="panel-head">
+          <h3>Таблица соответствий: шансы и экономика дропа</h3>
+          <p>
+            Один из самых частых вопросов на созвоне — «посчитайте вероятность и прибыльность».
+            Здесь видно, как из шанса вырастает реальная ценность вещи: сколько попыток нужно,
+            какой шанс получить хоть раз и сколько это стоит на фоне цены попытки.
+          </p>
+        </div>
+
+        <div class="lab-grid">
+          <div class="ctrls">
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="dr-attempts">Попыток в событии</label><output id="dr-attempts-out"></output></div>
+              <input type="range" id="dr-attempts" min="1" max="200" step="1" value="30">
+              <div class="ctrl-scale"><span>1</span><span>200</span></div>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-top"><label for="dr-cost">Цена попытки (кристаллы)</label><output id="dr-cost-out"></output></div>
+              <input type="range" id="dr-cost" min="10" max="300" step="5" value="50">
+              <div class="ctrl-scale"><span>10</span><span>300</span></div>
+            </div>
+          </div>
+          <div class="lab-main">
+            <figure class="chart-card">
+              <figcaption>
+                <b>Ожидаемая ценность по предметам</b>
+                <span>EV = шанс × попытки × цена предмета</span>
+              </figcaption>
+              <canvas id="chartDrop" height="300" role="img"
+                      aria-label="График ожидаемой ценности предметов"></canvas>
+            </figure>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="btable">
+            <thead>
+              <tr>
+                <th class="c-name">Предмет</th>
+                <th class="c-num">Тир</th>
+                <th class="c-num">Шанс</th>
+                <th class="c-num">Цена</th>
+                <th class="c-num">P(хотя бы 1)</th>
+                <th class="c-num">Ожидаемое кол-во</th>
+                <th class="c-num">EV</th>
+              </tr>
+            </thead>
+            <tbody id="drBody"></tbody>
+            <tfoot id="drFoot"></tfoot>
+          </table>
+        </div>
+        <div class="verdict-box">
+          <h4>Вывод по таблице</h4>
+          <ul class="verdict-list" id="drVerdict"></ul>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 5: РАЗБОР --------------------------------------------- -->
+      <div class="panel" data-panel="report">
+        <div class="panel-head">
+          <h3>Разбор: цифры и отзывы</h3>
+          <p>
+            Цифры ниже сняты с плейтестов «Королевств Эридора» на учебной группе. Это не отчёт
+            по продуктовому событию — живых тиражей у меня пока нет, и делать вид, что они есть,
+            было бы враньём. Показан метод: что я смотрю, как читаю результат и что беру
+            в следующую итерацию.
+          </p>
+        </div>
+
+        <div class="scenario-switch" id="repSwitch" role="tablist" aria-label="Сценарии недели"></div>
+        <div class="rep-grid">
+          <div class="rep-metrics" id="repMetrics"></div>
+          <div class="rep-analysis">
+            <div class="verdict-box">
+              <h4 id="repTitle"></h4>
+              <ul class="verdict-list" id="repVerdict"></ul>
+            </div>
+            <div class="next-step" id="repNext"></div>
+          </div>
+        </div>
+
+        <h4 class="block-title">Как я работаю с отзывами игроков</h4>
+        <div class="fb-filter" id="fbFilter"></div>
+        <div class="fb-list" id="fbList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 / О СЕБЕ ---------------------------------------------------------- -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">02</p>
+      <h2 class="sec-title">Обо мне</h2>
+    </header>
+    <div class="about-grid">
+      <div class="about-text" data-reveal id="aboutText"></div>
+      <aside class="about-side">
+        <div class="about-want">
+          <h3>Что ищу</h3>
+          <ul id="aboutWant"></ul>
+        </div>
+        <div class="honest">
+          <h3 id="gapsTitle"></h3>
+          <ul id="aboutGaps"></ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 03 / ОБРАЗОВАНИЕ ----------------------------------------------------- -->
+<section id="education" class="sec">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">03</p>
+      <h2 class="sec-title">Образование и практика</h2>
+      <p class="sec-lead">Курсы важны не сами по себе, а работами, которые после них остались.</p>
+    </header>
+    <div class="edu-grid" data-reveal>
+      <div class="edu-col" id="eduCourses"></div>
+      <div class="edu-col">
+        <div class="panel panel-flat">
+          <h3 class="sub">Инструменты</h3>
+          <ul class="list-tight" id="eduExtra"></ul>
+        </div>
+        <div class="panel panel-flat">
+          <h3 class="sub">Языки</h3>
+          <ul class="lang-list" id="eduLangs"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 / КЕЙСЫ ----------------------------------------------------------- -->
+<section id="projects" class="sec">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">04</p>
+      <h2 class="sec-title">Кейсы: задача → решение → результат</h2>
+      <p class="sec-lead">
+        Каждый кейс разложен по одной схеме, чтобы было видно не «что делал», а что из этого
+        получилось.
+      </p>
+    </header>
+    <div class="projects" id="projectList"></div>
+  </div>
+</section>
+
+<!-- 05 / О ГЕЙМТЕК ------------------------------------------------------- -->
+<section id="gametech" class="sec sec-alt">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">05</p>
+      <h2 class="sec-title">Что я знаю о ГеймТек</h2>
+      <p class="sec-lead" id="gtLead"></p>
+    </header>
+    <div class="gt-grid" id="gtCards" data-reveal></div>
+    <div class="week1" data-reveal>
+      <h3>Что я могу сделать в первую неделю</h3>
+      <ul id="gtWeek1"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 06 / МЕТОД ----------------------------------------------------------- -->
+<section id="process" class="sec">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">06</p>
+      <h2 class="sec-title">Метод: как я довожу контент до релиза</h2>
+      <p class="sec-lead">Шесть шагов. На каждом есть конкретный артефакт, а не «пообщался с командой».</p>
+    </header>
+    <div class="steps" id="processSteps" data-reveal></div>
+
+    <h3 class="block-title">Четыре правила, которые я не нарушаю</h3>
+    <div class="rules" id="ruleList" data-reveal></div>
+  </div>
+</section>
+
+<!-- 07 / СООТВЕТСТВИЕ ВАКАНСИИ ------------------------------------------- -->
+<section id="match" class="sec sec-alt">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">07</p>
+      <h2 class="sec-title">Где закрыт каждый пункт вакансии</h2>
+      <p class="sec-lead" id="matchLead"></p>
+    </header>
+    <div class="match-grid" id="matchGrid" data-reveal></div>
+  </div>
+</section>
+
+<!-- 08 / НАВЫКИ ---------------------------------------------------------- -->
+<section id="skills" class="sec">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">08</p>
+      <h2 class="sec-title">Навыки</h2>
+      <p class="sec-lead">Группировано по тому, как это используется в работе, а не по списку технологий.</p>
+    </header>
+    <div class="skills" id="skillGroups" data-reveal></div>
+  </div>
+</section>
+
+<!-- 09 / КОНТАКТЫ -------------------------------------------------------- -->
+<section id="contacts" class="sec sec-last">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="sec-num">09</p>
+      <h2 class="sec-title">Контакты</h2>
+      <p class="sec-lead" id="signLine"></p>
+    </header>
+    <div class="contacts" id="contactList" data-reveal></div>
+    <div class="changelog" data-reveal>
+      <h3 id="changelogHead"></h3>
+      <p class="note" id="changelogLead"></p>
+      <ul class="chlog" id="changelogList"></ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="note" id="footNote"></p>
+    <button class="btn btn-ghost btn-sm" type="button" onclick="window.print()">Сохранить в PDF</button>
+  </div>
+</footer>
+
+<!-- Версия в ссылках обязана совпадать с последней строкой changelog.
+     GitHub Pages держит файлы в кэше около десяти минут: без метки рекрутер
+     может получить новую разметку со старым скриптом. С меткой меняется ключ. -->
+<script src="content.js?v=1.0"></script>
+<script src="balance.js?v=1.0"></script>
+<script src="lab.js?v=1.0"></script>
+<script src="main.js?v=1.0"></script>
+</body>
+</html>
