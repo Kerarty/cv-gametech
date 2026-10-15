@@ -916,15 +916,29 @@ input[type="range"]::-moz-range-track { height: 4px; border-radius: 4px; backgro
 .match-list { display: grid; gap: 3px; }
 .match-list li { border-bottom: 1px solid var(--line); }
 .match-list li:last-child { border-bottom: 0; }
-.match-list a { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; color: var(--muted); font-size: 14px; }
+/* align-items: center обязателен. Без него flex растягивает плашку по
+   высоте строки: в пунктах с длинным текстом получается высокий овал,
+   а подпись внутри прижата к его верху. */
+.match-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
 .match-list a:hover { color: var(--text); }
+.match-list a > span:first-child { min-width: 0; }
 .match-list .ref {
   flex-shrink: 0;
-  padding: 2px 9px;
+  align-self: center;
+  padding: 3px 10px;
   border: 1px solid var(--line-2);
   border-radius: 999px;
-  font: 400 11px/1.6 var(--mono);
+  font: 400 11px/1.5 var(--mono);
   color: var(--dim);
+  white-space: nowrap; /* подпись не рвётся на две строки */
 }
 .match-list a:hover .ref { border-color: var(--mint-dark); color: var(--mint); }
 
