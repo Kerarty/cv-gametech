@@ -6,7 +6,7 @@
 <title>[Имя Фамилия] — геймдизайнер: liveops, документация, баланс</title>
 <meta name="description" content="Интерактивное резюме геймдизайнера: рабочий тюнер лайвопс-событий, таблица контента с формулами, экономика события и разбор результатов.">
 <meta name="theme-color" content="#0A0D0B">
-<link rel="stylesheet" href="styles.css?v=1.0">
+<link rel="stylesheet" href="styles.css?v=1.1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0D0B'/><path d='M16 7l7 9-7 9-7-9z' fill='none' stroke='%236EE7A8' stroke-width='2.2' stroke-linejoin='round'/></svg>">
 </head>
 <body>
@@ -30,7 +30,13 @@
       <a href="#match" data-spy>Вакансия</a>
       <a href="#contacts" data-spy class="nav-cta">Контакты</a>
     </nav>
-    <button id="printBtn" class="btn btn-ghost btn-sm" type="button">В PDF</button>
+    <!-- Ссылка на PDF стоит в шапке, а не только внизу: человек, который открыл
+         резюме, решает за три секунды — дочитать страницу или скачать файл.
+         Если PDF спрятан в подвале, половина рекрутеров его не найдёт. -->
+    <a class="pdf-chip" href="assets/Yaroslav_Kukar_Game_Designer.pdf"
+       download="Yaroslav_Kukar_Game_Designer.pdf" title="Резюме в PDF, одна страница A4">PDF</a>
+    <button id="printBtn" class="btn btn-ghost btn-sm" type="button"
+            title="Сохранить эту интерактивную страницу целиком">Всё в PDF</button>
   </div>
 </header>
 
@@ -481,6 +487,14 @@
       <p class="sec-lead" id="signLine"></p>
     </header>
     <div class="contacts" id="contactList" data-reveal></div>
+    <div class="dl" data-reveal>
+      <a class="btn btn-primary" href="assets/Yaroslav_Kukar_Game_Designer.pdf"
+         download="Yaroslav_Kukar_Game_Designer.pdf">Скачать резюме в PDF</a>
+      <p class="note">
+        Одна страница A4 на случай, если интерактивный формат неудобно читать
+        или он не открылся. Там то же самое, но без интерактива.
+      </p>
+    </div>
     <div class="changelog" data-reveal>
       <h3 id="changelogHead"></h3>
       <p class="note" id="changelogLead"></p>
@@ -501,9 +515,9 @@
 <!-- Версия в ссылках обязана совпадать с последней строкой changelog.
      GitHub Pages держит файлы в кэше около десяти минут: без метки рекрутер
      может получить новую разметку со старым скриптом. С меткой меняется ключ. -->
-<script src="content.js?v=1.0"></script>
-<script src="balance.js?v=1.0"></script>
-<script src="lab.js?v=1.0"></script>
-<script src="main.js?v=1.0"></script>
+<script src="content.js?v=1.1"></script>
+<script src="balance.js?v=1.1"></script>
+<script src="lab.js?v=1.1"></script>
+<script src="main.js?v=1.1"></script>
 </body>
 </html>

@@ -181,6 +181,21 @@ canvas { display: block; width: 100%; }
 .nav .nav-cta:hover { background: #85F0BC; color: #06210F; }
 .nav .nav-cta.is-active { color: #06210F; background: var(--mint); }
 
+/* Плашка PDF в шапке */
+.pdf-chip {
+  flex-shrink: 0;
+  padding: 7px 13px;
+  border: 1px solid var(--mint-dark);
+  border-radius: 8px;
+  background: rgba(110, 231, 168, 0.1);
+  color: var(--mint);
+  font: 700 12px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.pdf-chip:hover { background: var(--mint); color: #06210F; }
+
 /* --- ГЕРОЙ ------------------------------------------------------------- */
 .hero { padding: 76px 0 56px; }
 .hero-in {
@@ -969,6 +984,10 @@ input[type="range"]::-moz-range-track { height: 4px; border-radius: 4px; backgro
 .chlog li:last-child { border-bottom: 0; }
 .chlog .v { font: 600 13px/1.5 var(--mono); color: var(--mint); }
 .chlog .d { font: 400 12.5px/1.5 var(--mono); color: var(--dim); }
+
+/* Блок скачивания PDF под контактами */
+.dl { margin-top: 26px; text-align: center; }
+.dl .note { margin: 14px auto 0; max-width: 52ch; }
 
 /* --- ПОДВАЛ ------------------------------------------------------------- */
 .foot { padding: 28px 0 46px; border-top: 1px solid var(--line); }
